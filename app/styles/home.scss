@@ -1,0 +1,141 @@
+@import 'mixins/global';
+
+#Home{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: $colorCyan;
+    color: #fff;
+    left: 0px;
+    top: 0px;
+    .home_logo{
+        background: url("images/logo-noomen.svg") no-repeat 0 0;
+        background-size: 100% 100%;
+        width: 100px;
+        height: 25px;
+        position: absolute;
+        left: 50%;
+        top: 20px;
+        @include transform(translate(-50%, 0));
+    }
+    .home_mobileblock{
+        display: none;
+    }
+    .home_mobileblock_nbhotels{
+        display: none;
+    }
+    #HomeContent{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        max-width: 1000px;
+        @include transform(translate(-50%, -50%));
+        .home_title{
+            font-size: 48px;
+            font-family: "roboto_slabbold";
+        }
+        .home_choice{
+            font-size: 17px;
+            font-family: "roboto_slabbold";
+            width: 400px;
+            text-align: center;
+            position: relative;
+            left: 50%;
+            margin-top: 30px;
+            @include transform(translate(-50%, 0));
+            .choice_title{
+                display: inline-block;
+                width: 100%;
+                vertical-align: top;
+            }
+            .choice_toggler{
+                .toggler_option{
+                    &.option_pro{
+                        text-align: right;
+                    }
+                    &.option_perso{
+                        text-align: left;
+                    }
+                }
+                .toggler_toggle{
+                    .toggle_chip{
+                        
+                    }
+                }
+                &[data-option="pro"]{
+                    .toggle_chip{
+                        left: 2px !important;
+                    }
+                    .option_perso{
+                        color: $colorCyanLight;
+                    }
+                }
+                &[data-option="perso"]{
+                    .toggle_chip{
+                        left: 18px !important;
+                    }
+                    .option_pro{
+                        color: $colorCyanLight;
+                    }
+                }
+            }
+        }
+
+        .home_criteria{
+            margin-top: 30px;
+            position: relative;
+            .criteria_block{
+                
+            }
+            .home_criteria_disclaimer{
+                position: absolute;
+                left: 10px;
+                top: -22px;
+                color: #fff;
+                opacity: .8;
+                font-size: 14px;
+            }
+        }
+
+        .home_validbt{
+            width: 230px;
+            height: 50px;
+            border-radius: 10px;
+            background: #fff;
+            display: block;
+            position: relative;
+            left: 50%;
+            margin-top: 40px;
+            font-size: 18px;
+            text-align: center;
+            line-height: 50px;
+            color: $textColor;
+            text-decoration: none;
+            cursor: pointer;
+            @include transform(translate(-50%, 0));
+            &:hover{
+                opacity: .5;
+                text-decoration: none;
+            }
+        }
+
+        &[data-choice="pro"]{
+            .criteria_block[data-option="perso"]{
+                display: none;
+            }
+        }
+        &[data-choice="perso"]{
+            .criteria_block[data-option="pro"]{
+                display: none;
+            }
+        }
+    }
+
+    &[data-valid="false"]{
+        .home_validbt{
+            opacity: .5;
+            pointer-events:none;
+        }
+    }
+}

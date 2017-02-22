@@ -1,0 +1,385 @@
+@import 'mixins/global';
+
+.tuile{
+    width: 220px;
+    min-height: 360px;
+    background: $colorCyan;
+    padding: 14px;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 5px;
+    opacity: 1;
+    @include transition((all), 0.25s, ease-in-out);
+    @include transform(translate(0, 0));
+    &.leaving{
+        @include transition((all), 0.5s, ease-in-out);
+        @include transform(translate(0, 200px));
+        opacity: 0;
+    }
+    &.toappear{
+        opacity: 0;
+        @include transform(translate(0, 200px));
+    }
+    .tuile_image{
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 160px;
+        cursor: pointer;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 100% auto;
+    }
+    .tuile_content{
+        margin-top: 170px;
+        color: #fff;
+        text-align: left;
+        position: relative;
+        &:after{
+            content:"";
+            position: absolute;
+            top: 100%;
+            margin-top: 2px;
+            height: 1px;
+            width: 100%;
+            background: #7dcedd;
+            z-index: 1;
+        }
+        .tuile_title{
+            font-size: 19px;
+            cursor: pointer;
+            text-transform: capitalize;
+        }
+        .tuile_book{
+            height: 40px;
+            line-height: 40px;
+            border-top: 1px solid #7dcedd;
+            border-bottom: 1px solid #7dcedd;
+            margin: 10px 0 10px;
+            position: relative;
+            .tuile_book_bt{
+                display: inline-block;
+                background: $colorBlueDark;
+                color: #fff;
+                text-decoration: none;
+                cursor: pointer;
+                width: 110px;
+                height: 28px;
+                line-height: 28px;
+                font-size: 14px;
+                border-radius: 14px;
+                text-align: center;
+                position: relative;
+                text-indent: 10px;
+                font-family: "robotoregular";
+                &:before{
+                    position: absolute;
+                    content: "";
+                    left: 10px;
+                    top: 50%;
+                    background: url("images/tuile/icon-reserver.svg") no-repeat 0 0;
+                    background-size: 100% 100%;
+                    width: 14px;
+                    height: 12px;
+                    @include transform(translate(0, -50%));
+                }
+                &:hover{
+                    background: #fff;
+                    text-decoration: none;
+                    color: $colorBlueDark;
+                    &:before{
+                        background: url("images/tuile/icon-reserver-blue.svg") no-repeat 0 0;
+                        background-size: 100% 100%;
+                    }
+                }
+            }
+            .tuile_book_morebt{
+                font-size: 12px;
+                color: #fff;
+                position: absolute;
+                top: 50%;
+                right: 10px;
+                cursor: pointer;
+                @include transform(translate(0, -50%));
+                &:after{
+                    content:"";
+                    position: absolute;
+                    left: 100%;
+                    top: 50%;
+                    background: url("images/tuile/icon-open-infos_utile.svg") no-repeat 0 0;
+                    background-size: 100% 100%;
+                    width: 8px;
+                    height: 5px;
+                    @include transform(translate(4px, -50%) rotate(0deg));
+                }
+                &:hover{
+                    text-decoration: none;
+                }
+            }
+        }
+        .tuile_criteria{
+            max-height: 130px;
+            overflow: auto;
+            width: 100%;
+            position: relative;
+            .tuile_criterion{
+                font-size: 12px;
+                position: relative;
+                padding-left: 15px;
+                margin: 2px 0;
+                font-family: "robotobold";
+                .criterion_matchingincon{
+                    position: absolute;
+                    left: 0px;
+                    top: 4px;
+                    width: 11px;
+                    height: 11px;
+                    background: url("images/tuile/icon-critere_none.svg") no-repeat 0 0;
+                    background-size: 100% 100%;
+                }
+                &.matching{
+                    .criterion_matchingincon{
+                         background: url("images/tuile/icon-critere_ok.svg") no-repeat 0 0;
+                        background-size: 100% 100%;
+                    }
+                }
+            }
+        }
+        .tuile_criteriamobile{
+            width: 100%;
+            position: relative;
+            display: none;
+            .criteriamobile_bar{
+                position: relative;
+                width: 100%;
+                height: 10px;
+                border-radius: 10px;
+                background: $colorBlueDark;
+                position: relative;
+                .criteriamobile_jauge{
+                    background: #fff;
+                    position: absolute;
+                    left: 0px;
+                    top: 0px;
+                    height: 10px;
+                    border-radius: 10px;
+                }
+            }
+            .criteriamobile_text{
+                font-size: 12px;
+                font-family: "robotobold";
+                width: 100%;
+                position: relative;
+                text-align: left;
+                margin-top: 5px;
+                .criteriamobile_text_satisfaction{
+                    .satisfaction_nb{
+
+                    }
+                }
+                .crtieriamobile_detailsbt{
+                    color: #fff;
+                    position: absolute;
+                    right: 10px;
+                    top: 0px;
+                    cursor: pointer;
+                    text-decoration: none;
+                    &:hover{
+                        text-decoration: none;
+                    }
+                    &:after{
+                        content:"";
+                        position: absolute;
+                        left: 100%;
+                        top: 50%;
+                        background: url("images/tuile/icon-open-infos_utile.svg") no-repeat 0 0;
+                        background-size: 100% 100%;
+                        width: 8px;
+                        height: 5px;
+                        @include transform(translate(4px, -50%) rotate(0deg));
+                    }
+                }
+            }
+        }
+        .tuile_moreinfos{
+            width: 100%;
+            position: relative;
+            color: #fff;
+            font-size: 14px;
+            .moreinfos_address{
+                position: relative;
+            }
+            .moreinfos_link{
+                position: relative;
+                color: #fff;
+                text-decoration: none;
+                &:hover{
+                    color: $textColor;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+    .tuile_enterbt{
+        display: none;
+        background: url("images/tuile/icon-enter.svg") no-repeat center center #ffffff;
+        width: 45px;
+        height: 45px;
+        border-radius: 45px;
+        position: absolute;
+        bottom: 10px;
+        left: 14px;
+        cursor: pointer;
+        text-decoration: none;
+        &:hover{
+            background: url("images/tuile/icon-enter-white.svg") no-repeat center center $colorBlueDark;
+        }
+    }
+    &:hover{
+        background: $colorPink;
+        .tuile_book{
+            border-color:#ff9ca3;
+        }
+        .tuile_content{
+            &:after{
+                background: #ff9ca3;
+            }
+        }
+    }
+
+    &[data-infos="criteria"]{
+        .tuile_criteria{
+            display: block;
+        }
+        .tuile_moreinfos{
+            display: none;
+        }
+    }
+
+    &[data-infos="more"]{
+        .tuile_criteria{
+            display: none;
+        }
+        .tuile_moreinfos{
+            display: block;
+        }
+        .tuile_content{
+            .tuile_book{
+                .tuile_book_morebt{
+                    &:after{
+                        background:url("images/tuile/icon-close-infos_utile.svg") no-repeat 0 0; 
+                        width: 6px;
+                        height: 6px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.results_top{
+    margin-top: 0px;
+    h1{
+        font-size: 38px;
+        font-family: "roboto_light";
+        color: $colorBlueDark;
+        text-align: left;
+        margin: 0px;
+        .bolder{
+            font-family: "roboto_black";
+        }
+    }
+    .top_list{
+        margin-top: 10px;
+        .tuile{
+            &:first-child{
+                margin-left: 0px;
+            }
+            &:last-child{
+                margin-right: 0px;
+            }
+        }
+    }
+}
+.results_other{
+    position: relative;
+    left: 0px;
+    margin-top: 10px;
+    h2{
+        font-size: 28px;
+        text-align: left;
+        font-family: "roboto_light";
+        margin: 0px;
+        .other_nb{
+            font-family: "roboto_black";
+        }
+    }
+
+    .other_list{
+        margin-top: 10px;
+    }
+
+    .other_tuile{
+        background: #6e9cce;
+        padding: 14px;
+        width: 220px;
+        min-height: 340px;
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        margin: 5px 6px 5px 0;
+        .tuile_image{
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 125px;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 100% auto;
+        }
+        .tuile_content{
+            margin-top: 130px;
+            .tuile_title{
+                font-size: 17px;
+            }
+            .tuile_book{
+                border-color:#92b5da;
+                .tuile_book_bt{
+                    position: relative;
+                    font-size: 12px;
+                    width: 90px;
+                    text-indent: 14px;
+                    vertical-align: top;
+                    top: 4px;
+                }
+                .tuile_book_morebt{
+                    position: absolute;
+                }
+            }
+            .tuile_criteria{
+                max-height: 100px;
+            }
+            &:after{
+                background-color: #92b5da;
+            }
+        }
+        .tuile_enterbt{
+            width: 35px;
+            height: 35px;
+        }
+        &:hover{
+            background: $colorPink;
+            .tuile_book{
+                border-color:#ff9ca3;
+            }
+            .tuile_content{
+                &:after{
+                    background-color: #ff9ca3;
+                }
+            }
+        }
+    }
+}
