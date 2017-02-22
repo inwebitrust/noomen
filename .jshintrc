@@ -1,0 +1,3 @@
+{
+  "predef": [ "$", "_", "App", "module", "Backbone", "window", "require", "console", "d3", "location", "setTimeout", "FastClick", "WebSocket", "Highcharts", "document", "moment", "chance", "L" ]
+}
