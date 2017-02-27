@@ -1,19 +1,13 @@
 'use strict';
 
+/*
+Class ProductView : Gestion de la page/vue Recherche en fonction des criètres
+*/
+
 var SearchView = Backbone.View.extend({
 
     initialize:function(){
-        this.isFirstDisplayed = false;
-        this.hasBeenDisplayed = false;
-        this.isWaveAnimated = true;
-        this.searchMap = "";
-        this.mapParams = {
-            lat:48.856614,
-            lng:2.352222,
-            zoom:13
-        };
-        this.mapMarkers = [];
-
+        //mise en cache des éléments DOM amenées à être modifiés
         this.$Search = $("#Search");
         this.$Sidebar = $("#SearchSidebar");
         this.$mapInput = $(".head_search_input");
@@ -23,9 +17,22 @@ var SearchView = Backbone.View.extend({
         this.$topList = $(".top_list");
         this.$otherList = $(".other_list");
 
-        this.dragMaxPx = 230;
-        this.draggableMaxPx = 219;
+        //paramètres par défaut
+        this.isFirstDisplayed = false; //param pour savoir si la vue est affiché pour la première fois
+        this.hasBeenDisplayed = false; //param pour savoir la vue a déjà été affiché
+        this.isWaveAnimated = true; //param pour savoir si la vague SVG sous les critères est animée
+        this.searchMap = ""; //carte Leaflet.js
+        this.mapParams = {
+            lat:48.856614,
+            lng:2.352222,
+            zoom:13
+        };
+        this.mapMarkers = []; //Markers sur la carte
 
+        this.dragMaxPx = 230; //Largeur maximale du slider
+        this.draggableMaxPx = 219; //Position maximale en x du handle du slider
+
+        //paramètres des grosses icones de marker
         this.customBigMapIcon = L.Icon.extend({
             options: {
                 iconSize:     [24, 37],
@@ -34,6 +41,7 @@ var SearchView = Backbone.View.extend({
             }
         });
 
+        //paramètres des petites icones de marker
         this.customSmallMapIcon = L.Icon.extend({
             options: {
                 iconSize:     [16, 25],
@@ -45,6 +53,7 @@ var SearchView = Backbone.View.extend({
         this.render();
     },
 
+    //création de la Wave svg sous les critères
     render:function(){
         this.snapArea = Snap("#SVGWave");
         this.snapPath = this.snapArea.path("M0,0");
@@ -57,6 +66,7 @@ var SearchView = Backbone.View.extend({
         this.renderSearchCriteria();
     },
 
+    //création de la carte Leaflet
     renderMap:function(dataRendering){
         var self = this;
 
@@ -80,6 +90,7 @@ var SearchView = Backbone.View.extend({
         }
     },
 
+    //création des critères de recherches dans la sidebar
     renderSearchCriteria:function(){
         var self = this;
 
@@ -143,6 +154,7 @@ var SearchView = Backbone.View.extend({
         this.bindEvents();
     },
 
+    //mise à jour des critères de recherche dans la sidebar
     updateSearchCriteria:function(){
         $(".criterion_block").removeClass("displayed");
 
@@ -173,6 +185,7 @@ var SearchView = Backbone.View.extend({
         }
     },
 
+    //mise à jour de la carte leaflet
     updateMapLocation:function(){
         if(App.selectedCriteria.localisation !== undefined) $(".head_search_input").val(App.selectedCriteria.localisation.value);
         else $(".head_search_input").val("");
@@ -185,6 +198,7 @@ var SearchView = Backbone.View.extend({
         }
     },
 
+    //mise a jour de la liste de résultats des produits/hôtels
     updateResults:function(){
         var self = this;
 
@@ -197,7 +211,6 @@ var SearchView = Backbone.View.extend({
             });
         }
         
-
         _.each(App.matchingHotels, function(hotel, index){
             if(index < 3){
                 self.renderHotel(hotel, "top", index);
@@ -219,6 +232,7 @@ var SearchView = Backbone.View.extend({
         }, 100);
     },
 
+    //génération d'un hotel : tuile dans la liste de résultats
     renderHotel:function(hotel, container, ranking){
         if(this.searchMap !== "") this.renderMarker(hotel, container, ranking);
         var $tuileCriteria = $("<div class='tuile_criteria'></div>");
@@ -297,6 +311,7 @@ var SearchView = Backbone.View.extend({
         else this.$otherList.append($tuile);
     },
 
+    //génération d'un hotel : marker sur la carte
     renderMarker:function(hotel, container, ranking){
         var customIcon = "";
         if(container == "top") customIcon = new this.customBigMapIcon({iconUrl:"images/map/icon-map-cyan.svg" });
@@ -318,6 +333,7 @@ var SearchView = Backbone.View.extend({
         this.mapMarkers.push(marker);
     },
 
+    //EVENTS
     bindEvents:function(){
         var self = this;
 
@@ -360,10 +376,12 @@ var SearchView = Backbone.View.extend({
         this.bindSlidersEvent();
     },
 
+    //callback de selection d'une ville
     selectLocalisation:function(ui){
         App.updateInputCriterion("localisation", ui.item.value, true);
     },
 
+    //EVENTS MOBILE
     bindMobileEvents:function(){
         var self = this;
 
@@ -403,6 +421,7 @@ var SearchView = Backbone.View.extend({
         });
     },
 
+    //EVENTS SUR LES SLIDERS DANS LA SIDEBAR
     bindSlidersEvent:function(){
         var self = this;
         /*$(".criterion_slider").slider({
@@ -495,6 +514,7 @@ var SearchView = Backbone.View.extend({
         });
     },
 
+    //Animation initiale sur les sliders
     intialAnimateSliders:function(){
         var self = this;
 
@@ -549,6 +569,7 @@ var SearchView = Backbone.View.extend({
         this.initialAnimateWave();
     },
 
+    //Animation initiale sur la Wave SVG sous les sliders
     initialAnimateWave:function(){
         var self = this;
         if(this.isWaveAnimated){
@@ -559,17 +580,20 @@ var SearchView = Backbone.View.extend({
         }
     },
 
+    //mise à jour d'un slider
     updateSliderValue:function(slider, ui){
         var $slider = $(slider);
         var criterionID = $slider.attr("data-criterion");
         this.updateCriterionWeight(criterionID, ui.value);
     },
 
+    //mise à jour du poids d'un critère
     updateCriterionWeight:function(criterionID, weight){
         App.selectedCriteriaWeight[criterionID].weight = weight;
         App.updateApp("search");
     },
 
+    //toggle sur l'affichage de la carte
     toggleMapVisibility:function(){
         if(this.$contentMap.attr("data-visible") == "show"){
             this.$contentMap.attr("data-visible", "hide");
@@ -578,6 +602,7 @@ var SearchView = Backbone.View.extend({
         }
     },
 
+    //suppression d'un critère
     removeCriterion:function($criterionRemoveBt){
         var $criterionBlock = $criterionRemoveBt.parent(".criterion_block");
         var criterionID = $criterionBlock.attr("data-criterion");
@@ -597,10 +622,12 @@ var SearchView = Backbone.View.extend({
         }
     },
 
+    //séléction d'une tuile produit
     enterTuile:function($tuileBt){
         App.updateApp("product", { hotelID:$tuileBt.attr("data-tuileid"), triggerScrollbar:true });
     },
 
+    //toggle sur le bouton "plus d'infos" sur une tuile
     toggleInfos:function($tuileBtInfos){
         var tuileID = $tuileBtInfos.attr("data-tuileid");
         var $tuile = $(".tuile[data-tuileid='"+tuileID+"']");
@@ -612,6 +639,7 @@ var SearchView = Backbone.View.extend({
         }
     },
 
+    //toggle sur le bouton "afficher les critères" sur une tuile mobile
     toggleCriteriaMobile:function($bt){
         var tuileID = $bt.attr("data-tuileid");
         var $tuile = $(".tuile[data-tuileid='"+tuileID+"']");
@@ -623,16 +651,18 @@ var SearchView = Backbone.View.extend({
         }
     },
 
+    //affichage de la modal d'édition des critères
     displaySearchModal:function(){
         App.modalView.closeSearching();
         $("#SearchModalContainer").addClass("displayed");
     },
 
+    //affichage de la modal d'aide
     displayHelpModal:function(){
         $("#HelpModalContainer").addClass("displayed");
     },
 
-
+    //mise à jour du path SVG de la Wave
     updateSnapPath:function(){
         var $container = $(".sidebar_criteria");
         $("#SVGWave").css("height", $(".sidebar_criteria_list")[0].scrollHeight + "px");
@@ -697,6 +727,7 @@ var SearchView = Backbone.View.extend({
         });
     },
 
+    //génération du path SVG avec calcul des tangentes entre deux extremités
     getPath:function(joinType, coords){
         if(joinType == "M"){
             return "M" + coords.x2 + " " + coords.y2;

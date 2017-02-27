@@ -1,22 +1,27 @@
 'use strict';
 
+/*
+Class HomeView : Gestion de la page/vue Home
+*/
+
 var HomeView = Backbone.View.extend({
 
     initialize:function(){
+        //mise en cache des éléments DOM amenées à être modifiés
         this.$HomeContent = $("#HomeContent");
         this.$toggle = $(".home_toggler_toggle");
         this.$choiceToggler = $(".choice_toggler");
         this.$homeValidBt = $(".home_validbt");
         this.$homeMobileCriteriaBt = $(".home_criteriabt");
 
-        this.isValid = false;
-
-        this.nbCols = 4;
+        this.isValid = false; //variable gérant la validité du formulaire de home
+        this.nbCols = 4; //nombre de colonnes à afficher
 
         this.bindEvents();
         this.renderCriteria();
     },
 
+    //génération des colonnes de critères
     renderCriteria:function(){
         var self = this;
 
@@ -69,6 +74,7 @@ var HomeView = Backbone.View.extend({
         $("#Home").attr("data-valid", this.isValid);
     },
 
+    //mise à jour de la Home en fonction des séléctions
     updateHome:function(){
         $(".list_option").removeClass("selected");
         $(".criterion").attr("data-toggle", "false");
@@ -101,7 +107,6 @@ var HomeView = Backbone.View.extend({
     },
 
     // EVENTS
-
     bindEvents:function(){
         var self = this;
 
@@ -135,6 +140,7 @@ var HomeView = Backbone.View.extend({
         });
     },
 
+    //action sur le toggle
     toggleToggler:function(){
         if(this.$choiceToggler.attr("data-option") == "pro"){
             this.selectedChoice = "perso";
@@ -146,6 +152,7 @@ var HomeView = Backbone.View.extend({
         this.$HomeContent.attr("data-choice", this.selectedChoice);
     },
 
+    //mise à jour des critères de type checkbox
     toggleCheckboxCriterionOption:function($option, triggerSearch){
         var criterionID = $option.attr("data-criterion");
         var optionID = $option.attr("data-option");
@@ -159,6 +166,7 @@ var HomeView = Backbone.View.extend({
         }
     },
 
+    //mise à jour des critères de type radio
     toggleRadioCriterionOption:function($option, triggerSearch){
         var criterionID = $option.attr("data-criterion");
         var optionID = $option.attr("data-option");
@@ -173,6 +181,7 @@ var HomeView = Backbone.View.extend({
         }
     },
 
+    //mise à jour des critères de type input
     updateCriterionInputValue:function($input, triggerSearch){
         var criterionID = $input.attr("data-criterion");
         var inputValue = $input.val();
@@ -186,6 +195,7 @@ var HomeView = Backbone.View.extend({
         }
     },
 
+    //callback de séléction d'une ville
     selectLocalisation:function($input, ui){
         //this.updateCriterionInputValue($input, false);
         App.updateInputCriterion($input.attr("data-criterion"), ui.item.value, false);

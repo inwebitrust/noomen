@@ -1,7 +1,11 @@
 'use strict';
 
-//App.fakeAPI.generateHotels()
-//$("#FakeAPITextarea").val(JSON.stringify(App.fakeAPI.hotelsList))
+/*
+Fausse API pour créer un jeu de données de test des hôtels
+Permet de générer une liste d'hôtels avec les critères associés
+Permet de chercher dans la liste des hôtels ceux correspondants aux critères
+*/
+
 
 var FakeAPI = Backbone.View.extend({
     initialize:function(){
@@ -10,6 +14,7 @@ var FakeAPI = Backbone.View.extend({
         this.maxSearchHotels = 30;
     },
 
+    //récupération des données crées dans hotels.json
     gatherData:function(){
         var self = this;
         $.getJSON("data/hotels.json", function(data){
@@ -18,6 +23,7 @@ var FakeAPI = Backbone.View.extend({
         });
     },
 
+    //génération des fausses données
     generateHotels:function(){
         var self = this;
         this.hotelsList = [];
@@ -64,9 +70,10 @@ var FakeAPI = Backbone.View.extend({
         }
     },
 
+    //recherche des hôtels correspondants aux critères
     searchHotels:function(criteriaParams, weightParams){
         var self = this;
-
+        console.log(JSON.stringify(criteriaParams), JSON.stringify(weightParams));
         _.each(this.hotelsList, function(hotel){
             hotel.matchingCoeff = 0;
             hotel.matchingCriteria = [];
@@ -113,5 +120,8 @@ var FakeAPI = Backbone.View.extend({
         return sortedMatchingHotels.slice(0, Math.round(30 + Math.random()*20));
     }
 });
+
+//App.fakeAPI.generateHotels()
+//$("#FakeAPITextarea").val(JSON.stringify(App.fakeAPI.hotelsList))
 
 module.exports = FakeAPI;

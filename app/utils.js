@@ -1,5 +1,11 @@
 'use strict';
 
+/*
+Class Utils :
+contient toutes les infos statiques nécessaires à la génération des villes et critères
+contient les fonctions partagées utilisées par différentes vues du projet
+*/
+
 var Utils = Backbone.View.extend({
     citiesParams:{
         "france":{
@@ -165,6 +171,7 @@ var Utils = Backbone.View.extend({
         this.populateUtils();
     },
 
+    //création de la liste de critères pour le champ de recherche autocomplété
     populateUtils:function(){
         var self = this;
         _.each(this.criteria, function(criterion, index){
@@ -180,6 +187,7 @@ var Utils = Backbone.View.extend({
         });
     },
 
+    //retourner le rang avec l'exposant
     renderRanking:function(rank){
         if(rank == 1) return "1<sup>er</sup>";
         else return rank + "<sup>e</sup>";

@@ -1,22 +1,31 @@
 'use strict';
 
+/*
+Class ProductView : Gestion de la page/vue Produit/Hôtel
+*/
+
 var ProductView = Backbone.View.extend({
 
     initialize:function(){
+        //mise en cache des éléments DOM amenées à être modifiés
         this.$sidebarList = $(".sidebar_list");
         this.$productVisuel = $(".product_visuel");
         this.$infosTextTitle = $(".infos_text_title");
         this.$infosTextCriteria = $(".infos_text_criteria");
+
+        //paramètres par défaut
         this.selectedProductID = "";
         this.isScrollItemClicked = false;
         this.isScrollAnimated = false;
         this.sidebarItemHeight = 80;
 
+        //paramètres de l'objet hotel ne correspondant pas à des critères
         this.noCriteriaIndex = ["imageID", "id", "name", "matchingCoeff"];
 
         this.bindEvents();
     },
 
+    //mise à jour de la page produit
     updateProduct:function(){
         var self = this;
 
@@ -57,6 +66,7 @@ var ProductView = Backbone.View.extend({
         this.updateSidebar();
     },
 
+    //mise à jour de la sidebar de la page produit
     updateSidebar:function(){
         var self = this;
         this.$sidebarList.empty();
@@ -79,6 +89,7 @@ var ProductView = Backbone.View.extend({
         this.updateScrollSidebar();
     },
 
+    //mise à jour après un scrol dans la sidebar
     updateScrollSidebar:function(){
         var self = this;
 
@@ -101,6 +112,7 @@ var ProductView = Backbone.View.extend({
         }
     },
 
+    //génération du polar chart (diagramme en étoile radar)
     renderChart:function(){
         var self = this;
         var foundHotel = _.find(App.matchingHotels, function(h){ return h.id == App.selectedProductID; });
@@ -232,6 +244,7 @@ var ProductView = Backbone.View.extend({
         });
     },
 
+    // EVENTS
     bindEvents:function(){
         var self = this;
         $(".product_calltosearch_bt").on("click", function(){
@@ -258,6 +271,7 @@ var ProductView = Backbone.View.extend({
         });
     },
 
+    //callback après un scroll manuel dans la sidebar
     manualScrolling:function(){
         var currentScrollTop = this.$sidebarList.scrollTop();
         var incScroll = (currentScrollTop / this.sidebarItemHeight);
@@ -270,6 +284,7 @@ var ProductView = Backbone.View.extend({
         }
     },
 
+    //callback sur les flèches prev/next pour fair défiler les produits
     goToProduct:function(way){
         var $selectedProduct = $(".sidebar_list .list_item[data-productid='"+this.selectedProductID+"']");
         var incProduct = parseInt($selectedProduct.attr("data-inc"), 10);

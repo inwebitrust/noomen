@@ -1,14 +1,20 @@
 'use strict';
 
+/*
+Class ModalView : Gestion de la modale d'édition des critères
+*/
+
 var ModalView = Backbone.View.extend({
 
     initialize:function(){
+        //mise en cache des éléments DOM amenées à être modifiés
         this.$modalCriteria = $(".modal_criteria");
         this.$choiceToggler = $(".modal_head_toggler");
         this.$toggle = $(".modal_toggler_toggle");
         this.$criteriaSearchResults = $(".modal_criteria_searchresults");
-        this.$searchResultsList = $(".modal_criteria_searchresults .criterion_list")
+        this.$searchResultsList = $(".modal_criteria_searchresults .criterion_list");
 
+        //paramètres par défaut
         this.selectedChoice = "all";
         this.nbCols = 4;
         this.render();  
@@ -20,6 +26,7 @@ var ModalView = Backbone.View.extend({
         this.bindEvents();
     },
 
+    //génération des colonnes de critères
     renderCriteria:function(){
         var self = this;
         var choiceCol = "modalCol";
@@ -121,6 +128,7 @@ var ModalView = Backbone.View.extend({
         this.$modalCriteria.attr("data-choice", this.selectedChoice);
     },
 
+    //action sur le toggle
     toggleCriterionBlock:function($titleToggleBt){
         var criterionID = $titleToggleBt.attr("data-criterion");
         var $criterionBlock = $(".modal_criterion[data-criterion='"+criterionID+"']");
@@ -129,10 +137,12 @@ var ModalView = Backbone.View.extend({
         else $criterionBlock.attr("data-toggle", "true");
     },
 
+    //bouton de fermeture de modal
     closeModal:function(){
         $(".modal_container").removeClass("displayed");
     },
 
+    //recherche de critères
     searchCriteria:function(inputVal){
         var self = this;
         var matchingCriteria = [];
@@ -159,6 +169,7 @@ var ModalView = Backbone.View.extend({
         }
     },
 
+    //fermeture de la recherche de critères
     closeSearching:function(){
         $("#SearchModal").attr("data-searching", "false");
         $(".searchbar_input").val("");

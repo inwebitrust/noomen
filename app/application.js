@@ -1,12 +1,20 @@
 "use strict";
 
+/*
+App : Composant racine du projet où les sous-vues, routers et utils sont créer
+C'est dans ce fichier que la fonction principale du projet updateApp gère les différents états de l'application (home, recherhce, fiche produit)
+*/
+
+
 var App = {
     $Body:$("body"),
     $Sliders:$("#Sliders"),
 
     init: function init() {
+        //fastlick : librairie pour gestion du touch rapide sous mobile
         FastClick.attach(document.body);
 
+        //déclaration des sous-vues et du router utilisé par l'application
         var Utils = require("utils");
         this.utils = new Utils();
 
@@ -28,6 +36,7 @@ var App = {
         var FakeAPI = require("fakeapi");
         this.fakeAPI = new FakeAPI();
 
+        //paramètres par défaut de l'application
         this.selectedPage = "home";
         this.selectedCriteria = {};
         this.defaultCriteria = {
@@ -47,24 +56,23 @@ var App = {
         this.gatherData();
     },
 
+    //récupération des fausses données de l'API
     gatherData:function(){
         this.fakeAPI.gatherData();
     },
 
+    //callback un fois que les données sont chargées, démarrage du router
     start:function(){
         Backbone.history.start();
     },
 
+    //callback du router après analyse du hash de l'url
     updateFromRouter:function(){
         this.bindEvents();
-        this.render();
         this.updateApp();
     },
 
-    render:function(){
-          
-    },
-
+    //fonction de mise à jour de l'app en fonction de la page choisies et des paramètres determinés
     updateApp:function(pageID, params, triggerSearch){
         if(pageID !== this.selectedPage){
             $("#SearchContent")[0].scrollTop = 0;
@@ -102,6 +110,7 @@ var App = {
         }
     },
 
+    //suppression d'un critère de type checkbox
     removeCheckboxCriterion:function(criterionID, optionID, triggerSearch){
         if(this.selectedCriteria[criterionID] === undefined){}
         else{
@@ -112,6 +121,7 @@ var App = {
         this.updateApp(this.selectedPage, {}, triggerSearch);
     },
 
+    //ajout d'un critère de type checkbox
     addCheckboxCriterion:function(criterionID, optionID, triggerSearch){
         if(this.selectedCriteria[criterionID] === undefined){
             this.selectedCriteria[criterionID] = {
@@ -130,12 +140,14 @@ var App = {
         this.updateApp(this.selectedPage, {}, triggerSearch);
     },
 
+    //suppression d'un critère de type radio
     removeRadioCriterion:function(criterionID, triggerSearch){
         delete this.selectedCriteria[criterionID];
         
         this.updateApp(this.selectedPage, {}, triggerSearch);
     },
 
+    //mise à jour d'un critère de type radio
     updateRadioCriterion:function(criterionID, optionID, triggerSearch){
         if(this.selectedCriteria[criterionID] === undefined){
             this.selectedCriteria[criterionID] = {
@@ -153,6 +165,7 @@ var App = {
         this.updateApp(this.selectedPage, {}, triggerSearch);
     },
 
+    //mise à jour d'un critère de type input
     updateInputCriterion:function(criterionID, inputValue, triggerSearch){
         if(this.selectedCriteria[criterionID] === undefined){
             this.selectedCriteria[criterionID] = {
@@ -170,6 +183,7 @@ var App = {
         this.updateApp(this.selectedPage, {}, triggerSearch);
     },
 
+    //suppression d'un critère de type input
     removeInputCriterion:function(criterionID, triggerSearch){
         delete this.selectedCriteria[criterionID];
         
