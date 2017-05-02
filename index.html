@@ -1,0 +1,263 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Noomen</title>
+    <link rel="stylesheet" href="app.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" rel="stylesheet"> 
+    <base target="_blank" />
+</head>
+<body data-page="home" data-burgered="false">
+    <section id="Home" class="sectionpage">
+        <div class="home_logo"></div>
+        <section id="HomeContent" data-choice="pro">
+            <div class="home_title">Décrivez votre hôtel idéal …</div>
+            <div class="home_choice">
+                <div class="choice_title">Séjour</div>
+                <div class="toggler choice_toggler" data-option="pro">
+                    <div class="toggler_option option_pro">Professionel</div>
+                    <div class="toggler_toggle home_toggler_toggle">
+                        <div class="toggle_chip"></div>
+                    </div>
+                    <div class="toggler_option option_perso">Personnel</div>
+                </div>
+            </div>
+            <div class="home_criteria">
+                <div class="home_criteria_disclaimer">* critères obligatoires</div>
+                <div class="criteria_block" data-option="pro"></div>
+                <div class="criteria_block" data-option="perso"></div>
+            </div>
+            <a class="home_validbt">Voir les résultats</a>
+        </section>
+        <div class="home_mobileblock">
+            <div class="home_mobileblock_nbhotels"><span class="nbhotels_figure"></span> hôtels</div>
+            <a class="home_criteriabt">Régler l’importance de vos critères</a>
+        </div>
+    </section>
+
+    <section id="SearchHeadMobile">
+        <a class="sidebar_burgermenu"></a>
+        <div class="cartridge_logo"></div>
+    </section>
+
+    <section id="Search" class="sectionpage" data-mobilemap="false" data-burgered="false">
+        <section id="SearchSidebar" class="sidebar">
+            <div class="sidebar_cartridge">
+                <div class="cartridge_logo"></div>
+                <div class="cartridge_content">
+                    <div class="cartridge_title">Trouvez<br />votre hôtel idéal...</div>
+                    <div class="cartridge_subtitle">en ajustant l'importance<br />de vos critères</div>
+                </div>
+            </div>
+            <div class="sidebar_criteria">
+                <div class="sidebar_criteria_mobile_title">
+                    <div class="sidebar_criteria_mobile_title_big">Décrivez votre hôtel idéal</div>
+                    <div class="sidebar_criteria_mobile_title_small">Et notez vos critères en fonction de leur importance pour vous</div>
+                    <a class="cartridge_helpbt">Comment ça marche ?</a>
+                </div>
+                <div class="sidebar_criteria_title">
+                    <div class="list_legend list_legend_left">Peu important</div>
+                    <div class="list_legend list_legend_right">Très important</div>
+                </div>
+                <div class="sidebar_criteria_list">
+                    <svg id="SVGWave">
+                        <defs>
+                            <linearGradient id="linear" gradientUnits="userSpaceOnUse" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#52d5da" stop-opacity="0"/>
+                                <stop offset="40%" stop-color="#52d5da" stop-opacity="1" />
+                                <stop offset="100%" stop-color="#f04170" stop-opacity="1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <a class="sidebar_criteria_addbt">
+                    <span class="sidebar_criteria_addbt_icon"></span>
+                    Modifier/Ajouter des critères
+                </a>
+            </div>
+        </section>
+        <div class="search_mobilemenu">
+            <div class="mobilemenu_label"><span class="nbhotels_figure"></span> hôtels</div>
+            <div class="mobilemenu_links">
+                <a class="mobilemenu_link mobilemenu_link_list">Liste</a>
+                <a class="mobilemenu_link mobilemenu_link_map">Carte</a>
+            </div>
+        </div>
+        <section id="SearchContent" class="page_content">
+            <div class="content_map" data-visible="show">
+                <div class="map_head">
+                    <div class="map_head_perimeter"><span class="mar_head_perimeter_label">Périmètre de la recherche</span></div>
+                    <div class="map_head_search">
+                        <div class="map_head_search_mobilelabel">Entrez une ville/code postal</div>
+                        <input class="head_search_input" />
+                        <a class="head_search_aroundmebt">
+                            <span class="aroundmebt_icon"></span>
+                            Autour de moi
+                        </a>
+                    </div>
+                    <div class="map_head_hidebt">
+                        <div class="hidebt_show">
+                            <span class="hidebt_label">Masquer la carte</span>
+                        </div>
+                        <div class="hidebt_hide">
+                            <span class="hidebt_label">Voir la carte</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="SearchMap"></div>
+            </div>
+            <div class="content_results">
+                <div class="results_top">
+                    <h1><span class="bolder">TOP 3</span> des hôtels au plus près de votre idéal</h1>
+                    <div class="top_list"></div>
+                </div>
+                <div class="results_other">
+                    <h2><span class="other_nb"></span> autres hôtels prochent de vos critères</h2>
+                    <div class="other_list"></div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <section id="SidebarCriteriaMobileActions">
+        <div class="sidebar_mobile_nbhotels"><span class="nbhotels_figure"></span> hôtels</div>
+        <a class="mobile_action mobile_action_seeresults">Voir les résultats</a>
+        <a class="mobile_action mobile_action_addcriteria">Ajouter des critères</a>
+    </section>
+
+    <section id="SearchContentMobileMenu">
+        <a class="mobile_action mobile_action_seecriteria">Importance des critères</a>
+        <a class="mobile_action mobile_action_addcriteria">Ajouter des critères</a>
+    </section>
+
+    <section id="Product" class="sectionpage">
+        <section id="ProductSidebar" class="sidebar">
+            <div class="sidebar_cartridge">
+                <div class="cartridge_logo"></div>
+            </div>
+            <div class="sidebar_calltoselection">
+                <a class="sidebar_calltoselection_bt">Votre sélection plus en détail</a>
+            </div>
+            <div class="sidebar_featurencart"></div>
+            <div class="sidebar_list"></div>
+        </section>
+        <section id="ProductContent" class="page_content">
+            <a class="product_calltosearch_bt">Retour à votre sélection</a>
+            <div id="ProductOverflow">
+                <div class="product_visuel"></div>
+                <div class="product_infos">
+                    <div class="product_infos_text">
+                        <div class="product_infos_text_wrapper">
+                            <div class="infos_text_title"></div>
+                            <div class="infos_text_desc">
+                                Courte desc. du produit sur deux lignes si besoin Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.
+                            </div>
+                            <a class="infos_text_bookbt">Réserver</a>
+                            <div class="infos_text_criteria"></div>
+                        </div>
+                        <div class="infos_text_arrows">
+                            <a class="arrow arrow_prev"><span class="arrow_label">Prec.</span></a>
+                            <a class="arrow arrow_next"><span class="arrow_label">Suiv.</span></a>
+                        </div>
+                    </div>
+                    <div class="product_infos_graph">
+                        <div class="infos_graph_title">Positionnement du produit<br />sur vos critères</div>
+                        <div class="infos_graph_chart" id="ProductChart"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <section id="SearchModalContainer" class="modal_container">
+        <section id="SearchModal" class="mymodal" data-searching="false">
+            <a class="modal_closebt"></a>
+            <div class="overflow_mobile">
+                <div class="modal_head">
+                    <div class="modal_head_logo"></div>
+                    <div class="modal_head_title">Votre hôtel idéal c’est…</div>
+                    <!--<div class="toggler modal_head_toggler" data-option="all">
+                        <div class="toggler_option option_featured"><span class="hide_mobile">Critères </span>principaux</div>
+                        <div class="toggler_toggle modal_toggler_toggle">
+                            <div class="toggle_chip"></div>
+                        </div>
+                        <div class="toggler_option option_all">Tous<span class="hide_mobile"> les critères</span></div>
+                    </div>-->
+                    <div class="modal_head_searchbar">
+                        <div class="searchbar_title">Affinez les critères de l’hôtel de vos rêves</div>
+                        <div class="searchbar_search">
+                            <input class="searchbar_input" placeholder="Chercher un critère" />
+                            <a class="searchbar_searchbt"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal_overflowcontent">
+                    <div class="modal_criteria"></div>
+                    <div class="modal_criteria_searchresults">
+                        <div class="criteria_col">
+                            <div class="criterion">
+                                <div class="criterion_list"></div>
+                            </div>
+                        </div>
+                        <div class="searchresults_nodata">Aucun critère ne correspond à votre recherche...</div>
+                    </div>
+                </div>
+                <div class="modal_overflowcontent_opacifier"></div>
+            </div>
+            <a class="modal_okbt">OK</a>
+            <div class="modal_mobileblock">
+                <div class="modal_mobileblock_nbhotels"><span class="nbhotels_figure"></span> hôtels</div>
+                <a class="mobile_action mobile_action_seeresults">Voir les résultats</a>
+                <a class="mobile_action mobile_action_seecriteria">Importance des critères</a>
+            </div>
+        </section>
+    </section>
+
+    <section id="HelpModalContainer" class="modal_container">
+        <section id="HelpModal" class="mymodal">
+            <div class="help_logo"></div>
+            <div class="help_title">Comment ça marche ?</div>
+            <div class="help_subtitle">
+                Pour chacun des critères que vous avez sélectionné, dites s’il est<br />peu important, important ou indispensable à vos yeux
+            </div>
+            <div class="help_tuto">
+                <div class="tuto_title">Par exemple, pour ce critère</div>
+                <div class="tuto_selectbox">Nombre d'étoiles</div>
+                <div class="tuto_gif_container">
+                    <img src="images/gif-tuto@2x.gif" class="tuto_gif" />
+                    <div class="tuto_gif_label tuto_gif_label_left">Pas important</div>
+                    <div class="tuto_gif_label tuto_gif_label_right">Primordial</div>
+                </div>
+            </div>
+            <a class="help_bt">J'ai compris</a>
+        </section>
+    </section>
+
+    <textarea id="FakeAPITextarea"></textarea>
+
+    <script src="vendor/jquery.js"></script>
+    <script src="vendor/underscore.js"></script>
+    <script src="vendor/backbone.js"></script>
+    <script src="vendor/highcharts.js"></script>
+    <script src="vendor/leaflet.js"></script>
+    <script src="vendor/fastclick.js"></script>
+    <script src="vendor/snap.svg-min.js"></script>
+    <script src="vendor/jquery-ui.min.js"></script>
+    <script src="vendor/jquery.ui.touch-punch.min.js"></script>
+    <script src="vendor/highcharts-more.js"></script>
+    <script src="vendor/leaflet-providers.js"></script>
+    <script src="vendor/underscore.string.js"></script>
+    <script src="application.js"></script>
+    <script src="fakeapi.js"></script>
+    <script src="router.js"></script>
+    <script src="utils.js"></script>
+    <script src="views/homeView.js"></script>
+    <script src="views/modalView.js"></script>
+    <script src="views/productView.js"></script>
+    <script src="views/searchView.js"></script>
+    <script>
+        App.init();
+    </script>
+</body>
+</html>
